@@ -19,7 +19,7 @@ from django.urls import path, include
 from .views import index
 
 urlpatterns = [
-    path('', index, name="home-page"),
-    path('signup/', include('litR_site.urls')),
+    path('', index, name="home"),
+    path('', include('litR_site.urls')),
     path('admin/', admin.site.urls),
 ]
