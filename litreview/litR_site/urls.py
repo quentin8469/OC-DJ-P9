@@ -1,9 +1,11 @@
 from django.urls import path
 
 from .views import signup, flux, follow_users, create_ticket, create_critics, answer_to_critic, show_own_critics, \
-    edit_own_critics, edit_own_ticket
+    edit_own_critics, edit_own_ticket, index
 
 urlpatterns = [
+    path('', index, name="home"),
+    path('index/', index, name="home"),
     path('signup/', signup, name="signup"),
     path('flux/', flux, name="flux"),
     path('follow/', follow_users, name="follow"),
