@@ -1,7 +1,7 @@
 
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from .forms import NewUserForm, NewTicketForm
+from .forms import NewUserForm, NewTicketForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 '''
     Kevin
@@ -86,7 +86,18 @@ def create_critics(request):
     :param request:
     :return:
     """
-    return render(request, "create_critics.html")
+    if request.method == "POST":
+        ticketform = NewTicketForm(request.POST)
+        criticform = ReviewForm(request.POST)
+        if ticketform.is_valid() and criticform.is_valid():
+            ticketform.save()
+            criticform.save()
+            return redirect('flux')
+    else:
+        ticketform = NewTicketForm()
+        criticform = ReviewForm()
+
+    return render(request, "create_critics.html", {"ticketform": ticketform, "criticform": criticform})
 
 
 @login_required(login_url='home')

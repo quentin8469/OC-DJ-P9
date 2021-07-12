@@ -30,6 +30,7 @@ class ReviewForm(forms.ModelForm):
         fields = ['headline', 'rating', 'body']
 
 
+
 '''
 class NewUserForm(forms.Form):
     """"""

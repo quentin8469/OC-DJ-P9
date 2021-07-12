@@ -8,6 +8,21 @@
     <section>
         <h1> LITReview, Page créer critiques</h1>
     </section>
+    <section>
+        <form methode="POST">
+            {% csrf_token %}
+            <p> Livre / Article</p>
+            <table>
+                {{ticketform.as_table}}
+            </table>
+            <p> Critique</p>
+            <table>
+                {{criticform.as_table}}
+            </table>
+            <input type="submit" value="Validez votre critique">
+
+        </form>
+    </section>
 
 </body>
 </html>
