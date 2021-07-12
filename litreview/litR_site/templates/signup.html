@@ -10,15 +10,15 @@
         <div class="inscription">
             <h2> Créer un compte </h2>
 
-            <form method="POST">
+             <form method="post">
                 {% csrf_token %}
-                <table>
+                 <table>
                     {{form.as_table}}
                 </table>
-                <input type="submit" value="S'inscrire">
+                 <input class="" type="submit" value="S'inscrire"/>
+                 <a class="" href="">Retourner à l'accueil</a>
             </form>
 
-            <a class="" href="" >Retour Home page</a>
         </div>
     </section>
 

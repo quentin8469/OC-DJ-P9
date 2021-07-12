@@ -1,6 +1,8 @@
+from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import NewUserForm, NewTicketForm
+
 
 
 def index(request):
@@ -19,7 +21,8 @@ def signup(request):
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
-            form.cleaned_data
+            form.save()
+            messages.success(request, "Registration successful.")
             return render(request, "index.html")
     else:
         form = NewUserForm()
@@ -48,10 +51,10 @@ def create_ticket(request):
     :return:
     """
     if request.method == "POST":
-        form = NewTicketForm()
+        form = NewTicketForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("Ticket crée.")
+
     else:
         form = NewTicketForm()
     return render(request, "create_ticket.html", {"form": form})
