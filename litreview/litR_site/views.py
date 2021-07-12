@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .forms import NewUserForm
 
 
 def index(request):
@@ -6,7 +7,8 @@ def index(request):
 
 
 def signup(request):
-    return render(request, "signup.html")
+    form = NewUserForm()
+    return render(request, "signup.html", {"form": form})
 
 
 def flux(request):
