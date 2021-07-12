@@ -5,11 +5,22 @@
     <title>LITReview_P9</title>
 </head>
 <body>
+    <header>
+        <h1> LITReview </h1>
+        <nav>
+            <h2> Flux </h2>
+            <a class="" href="{% url 'show-critics' %}" >Mes Posts</a>
+            <a class="" href="{% url 'follow' %}" >Abonnements</a>
+            <a class="" href="" >Se déconnecter</a>
+        </nav>
+    </header>
     <section>
         <h1> LITReview, Page flux</h1>
         <a class="" href="{% url 'new-critic' %}" >Demander une critique</a>
         <a class="" href="{% url 'new-ticket' %}" >Créer une critique</a>
-
+    </section>
+    <section>
+        <h2> ici visu des publications</h2>
     </section>
 
 </body>
