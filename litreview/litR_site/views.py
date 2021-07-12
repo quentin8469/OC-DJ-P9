@@ -1,11 +1,13 @@
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .forms import NewUserForm, NewTicketForm
+from django.contrib.auth.decorators import login_required
 '''
     Kevin
     k1e2v3i4n5
 '''
+
 
 def index(request):
     """
@@ -24,6 +26,10 @@ def index(request):
     return render(request, "index.html")
 
 
+def logout_user(request):
+    logout(request)
+    return redirect('home')
+
 def signup(request):
     """
     :param request:
@@ -39,6 +45,7 @@ def signup(request):
     return render(request, "signup.html", {"form": form})
 
 
+@login_required(login_url='home')
 def flux(request):
     """
     :param request:
