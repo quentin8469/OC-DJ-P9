@@ -30,6 +30,7 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
+
 def signup(request):
     """
     :param request:
@@ -54,6 +55,7 @@ def flux(request):
     return render(request, "flux.html")
 
 
+@login_required(login_url='home')
 def follow_users(request):
     """
     :param request:
@@ -62,6 +64,7 @@ def follow_users(request):
     return render(request, "follow_users.html")
 
 
+@login_required(login_url='home')
 def create_ticket(request):
     """
     :param request:
@@ -71,12 +74,13 @@ def create_ticket(request):
         form = NewTicketForm(request.POST)
         if form.is_valid():
             form.save()
-
+            return redirect('flux')
     else:
         form = NewTicketForm()
     return render(request, "create_ticket.html", {"form": form})
 
 
+@login_required(login_url='home')
 def create_critics(request):
     """
     :param request:
@@ -85,6 +89,7 @@ def create_critics(request):
     return render(request, "create_critics.html")
 
 
+@login_required(login_url='home')
 def answer_to_critic(request):
     """
     :param request:
@@ -93,6 +98,7 @@ def answer_to_critic(request):
     return render(request, "answer_to_critic.html")
 
 
+@login_required(login_url='home')
 def show_own_critics(request):
     """
     :param request:
@@ -101,6 +107,7 @@ def show_own_critics(request):
     return render(request, "show_own_critics.html")
 
 
+@login_required(login_url='home')
 def edit_own_critics(request):
     """
     :param request:
@@ -109,6 +116,7 @@ def edit_own_critics(request):
     return render(request, "show_own_critics.html")
 
 
+@login_required(login_url='home')
 def edit_own_ticket(request):
     """
     :param request:

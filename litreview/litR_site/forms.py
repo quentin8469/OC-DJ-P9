@@ -21,7 +21,7 @@ class NewUserForm(UserCreationForm):
 class NewTicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'image', 'user']
 
 
 class ReviewForm(forms.ModelForm):
