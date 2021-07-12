@@ -5,7 +5,7 @@ from .views import signup, flux, follow_users, create_ticket, create_critics, an
 
 urlpatterns = [
     path('', index, name="home"),
-    path('index/', index, name="home"),
+    path('home/', index, name="home"),
     path('signup/', signup, name="signup"),
     path('flux/', flux, name="flux"),
     path('follow/', follow_users, name="follow"),

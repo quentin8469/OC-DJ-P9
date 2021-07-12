@@ -1,15 +1,26 @@
-from django.contrib import messages
-from django.http import HttpResponse
-from django.shortcuts import render
+
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
 from .forms import NewUserForm, NewTicketForm
-
-
+'''
+    Kevin
+    k1e2v3i4n5
+'''
 
 def index(request):
     """
     :param request:
     :return:
     """
+
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('flux')
+
     return render(request, "index.html")
 
 
@@ -22,8 +33,7 @@ def signup(request):
         form = NewUserForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Registration successful.")
-            return render(request, "index.html")
+            return redirect('home')
     else:
         form = NewUserForm()
     return render(request, "signup.html", {"form": form})

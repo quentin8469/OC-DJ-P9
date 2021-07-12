@@ -18,6 +18,17 @@ class NewUserForm(UserCreationForm):
         fields = ("username", "password1", "password2")
 
 
+class NewTicketForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['title', 'description']
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['headline', 'rating', 'body']
+
 
 '''
 class NewUserForm(forms.Form):
@@ -37,16 +48,3 @@ class NewUserForm(forms.Form):
             raise forms.ValidationError("mot de passe different")
         return confirm_password
 '''
-
-
-class NewTicketForm(forms.ModelForm):
-    class Meta:
-        model = Ticket
-        fields = ['title', 'description']
-
-
-class ReviewForm(forms.ModelForm):
-    class Meta:
-        model = Review
-        fields = ['headline', 'rating', 'body']
-
