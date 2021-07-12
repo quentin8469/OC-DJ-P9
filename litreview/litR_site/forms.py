@@ -1,4 +1,5 @@
 from django import forms
+from .models import Ticket
 
 
 class NewUserForm(forms.Form):
@@ -14,3 +15,9 @@ class NewUserForm(forms.Form):
         return confirm_password
 
 
+class NewTicketForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['title', 'description']
+        labels = {"title": "Titre",
+                  }

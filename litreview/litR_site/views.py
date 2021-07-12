@@ -1,5 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import NewUserForm
+from .forms import NewUserForm, NewTicketForm
 
 
 def index(request):
@@ -46,7 +47,14 @@ def create_ticket(request):
     :param request:
     :return:
     """
-    return render(request, "create_ticket.html")
+    if request.method == "POST":
+        form = NewTicketForm()
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Ticket crée.")
+    else:
+        form = NewTicketForm()
+    return render(request, "create_ticket.html", {"form": form})
 
 
 def create_critics(request):

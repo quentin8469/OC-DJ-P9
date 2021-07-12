@@ -8,6 +8,14 @@
     <section>
         <h1> LITReview, Page creation de tickets</h1>
     </section>
-
+    <section>
+        <form method="POST">
+                {% csrf_token %}
+                <table>
+                    {{form.as_table}}
+                </table>
+                <input type="submit" value="Validez votre ticket">
+            </form>
+    </section>
 </body>
 </html>
