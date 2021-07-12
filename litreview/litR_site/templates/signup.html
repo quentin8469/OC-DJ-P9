@@ -9,12 +9,15 @@
         <h1> LITReview, Page d'inscription</h1>
         <div class="inscription">
             <h2> Créer un compte </h2>
-            <form>
+
+            <form method="POST">
+                {% csrf_token %}
                 <table>
                     {{form.as_table}}
                 </table>
                 <input type="submit" value="S'inscrire">
             </form>
+
             <a class="" href="" >Retour Home page</a>
         </div>
     </section>
