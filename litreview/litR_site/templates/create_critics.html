@@ -11,17 +11,12 @@
     <section>
         <form methode="POST">
             {% csrf_token %}
-            <p> Livre / Article</p>
-            <table>
-                {{ticketform.as_table}}
-            </table>
-            <p> Critique</p>
-            <table>
-                {{criticform.as_table}}
-            </table>
-            <input type="submit" value="Validez votre critique">
+            {{ticketform.as_p}}
+            {{criticform.as_p}}
 
+            <input type="submit" value="Validez votre critique">
         </form>
+        <a class="" href="{% url 'flux' %}" >Retour page flux</a>
     </section>
 
 </body>

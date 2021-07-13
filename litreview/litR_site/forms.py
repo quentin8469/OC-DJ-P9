@@ -27,7 +27,7 @@ class NewTicketForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['headline', 'rating', 'body']
+        fields = ['headline', 'rating', 'body', 'user']
 
 
 

@@ -86,14 +86,24 @@ def create_critics(request):
     :param request:
     :return:
     """
+    print('bob0')
     if request.method == "POST":
+        print('bob1')
         ticketform = NewTicketForm(request.POST)
+        print('bob2')
         criticform = ReviewForm(request.POST)
+        print('bob3')
         if ticketform.is_valid() and criticform.is_valid():
-            ticketform.save()
-            criticform.save()
+            critic = criticform.save(commit=False)
+            ticket = ticketform.save(commit=False)
+            print('bob4')
+            ticket.save()
+            print('bob5')
+            critic.save()
+            print('bob6')
             return redirect('flux')
     else:
+        print('bob7')
         ticketform = NewTicketForm()
         criticform = ReviewForm()
 
