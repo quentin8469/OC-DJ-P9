@@ -15,7 +15,7 @@ urlpatterns = [
     path('answer-critic/', answer_to_critic, name="answer-critic"),
     path('show-critics/', show_own_critics, name="show-critics"),
     path('edit-critics/', edit_own_critics, name="edit-critics"),
-    path('edit-ticket/', edit_own_ticket, name="edit-ticket"),
+    path('edit-ticket/<int:ticket_id>/', edit_own_ticket, name="edit-ticket"),
     path('delticket/<int:ticket_id>/', del_ticket, name="delticket"),
     path('delreview/<int:review_id>/', del_review, name="delreview"),
 ]

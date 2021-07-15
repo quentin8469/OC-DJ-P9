@@ -18,7 +18,7 @@
                 {% if ticket.image %}
                     <img class="" src="../media/{{ ticket.image}}">
                 {% endif %}
-                <a class="" href="{% url 'edit-ticket' %}" >Modifier</a>
+                <a class="" href="{% url 'edit-ticket' ticket.id %}" >Modifier</a>
                 <a class="" href="{% url 'delticket' ticket.id %}" >Supprimer</a>
             {% endfor %}
         </div>

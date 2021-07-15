@@ -146,12 +146,18 @@ def edit_own_critics(request):
 
 
 @login_required(login_url='home')
-def edit_own_ticket(request):
+def edit_own_ticket(request, ticket_id):
     """
     :param request:
     :return:
     """
-    return render(request, "edit_own_ticket.html")
+    ticket = Ticket.objects.get(pk=ticket_id, user=request.user.id)
+    edit_ticket_form = NewTicketForm(request.POST or None, request.FILES or None, instance=ticket)
+    if edit_ticket_form.is_valid():
+        ticket.image = edit_ticket_form.cleaned_data['image']
+        edit_ticket_form.save()
+        return redirect('show-critics')
+    return render(request, "edit_own_ticket.html", {'edit_ticket_form': edit_ticket_form})
 
 
 @login_required(login_url='home')

@@ -9,6 +9,15 @@
         <h1> LITReview, Page modifier son ticket</h1>
         <a class="" href="{% url 'flux' %}" >Retour page flux</a>
     </section>
+<section>
+        <form enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+                <table>
+                    {{edit_ticket_form.as_table}}
+                </table>
+                <input type="submit" value="Validez votre modification">
+        </form>
+    </section>
 
 </body>
 </html>
