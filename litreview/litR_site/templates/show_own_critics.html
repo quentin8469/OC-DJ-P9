@@ -7,6 +7,26 @@
 <body>
     <section>
         <h1> LITReview, Page voir ses propres critiques</h1>
+        <a class="" href="{% url 'flux' %}" >Retour page flux</a>
+    </section>
+    <section>
+        <h2> Mes posts</h2>
+        <div>
+            <h1> Visu des tickets</h1>
+            {% for ticket in tickets %}
+                <p> {{ ticket.title }}</p>
+
+                <img class="" src="../media/{{ ticket.image}}">
+                <a class="" href="{% url 'edit-ticket' %}" >Modifier</a>
+                <a class="" href="{% url 'delticket' ticket.id %}" >Supprimer</a>
+            {% endfor %}
+            <h1> Visu des critiques</h1>
+            {% for critique in critiques %}
+                <p> {{ critique.ticket.title }}</p>
+                <a class="" href="{% url 'edit-critics' %}" >Modifier</a>
+                <a class="" href="" >Supprimer</a>
+            {% endfor %}
+        </div>
     </section>
 
 </body>

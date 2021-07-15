@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import signup, flux, follow_users, create_ticket, create_critics, answer_to_critic, show_own_critics, \
-    edit_own_critics, edit_own_ticket, index, logout_user
+    edit_own_critics, edit_own_ticket, index, logout_user, del_ticket
 
 urlpatterns = [
     path('', index, name="home"),
@@ -16,4 +16,5 @@ urlpatterns = [
     path('show-critics/', show_own_critics, name="show-critics"),
     path('edit-critics/', edit_own_critics, name="edit-critics"),
     path('edit-ticket/', edit_own_ticket, name="edit-ticket"),
+    path('delticket/<int:ticket_id>/', del_ticket, name="delticket"),
 ]

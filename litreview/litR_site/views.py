@@ -130,7 +130,10 @@ def show_own_critics(request):
     :param request:
     :return:
     """
-    return render(request, "show_own_critics.html")
+    user = request.user
+    tickets = Ticket.objects.filter(user=user.id)
+    critiques = Review.objects.filter(user=user.id)
+    return render(request, "show_own_critics.html", {'tickets': tickets, 'critiques': critiques})
 
 
 @login_required(login_url='home')
@@ -149,3 +152,10 @@ def edit_own_ticket(request):
     :return:
     """
     return render(request, "edit_own_ticket.html")
+
+
+@login_required(login_url='home')
+def del_ticket(request, ticket_id):
+    ticket = Ticket.objects.get(pk=ticket_id, user=request.user.id)
+    ticket.delete()
+    return redirect('show-critics')
