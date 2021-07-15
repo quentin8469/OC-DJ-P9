@@ -9,13 +9,13 @@
         <h1> LITReview, Page créer critiques</h1>
     </section>
     <section>
-        <form enctype="multipart/form-data" methode="POST" >
+        <form enctype="multipart/form-data" method="POST">
             {% csrf_token %}
             <p> Livre / Article </p>
-            {{ticketform.as_p}}
+            {{form_tik.as_p}}
 
             <p> Votre critique </p>
-            {{criticform.as_p}}
+            {{form_crit.as_p}}
 
             <input type="submit" value="Validez votre critique">
         </form>

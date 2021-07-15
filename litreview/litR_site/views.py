@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from .forms import NewUserForm, NewTicketForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 
-from .models import Ticket
+
 
 '''
     Kevin
@@ -93,33 +93,24 @@ def create_critics(request):
     :param request:
     :return:
     """
-    print('bob0')
     if request.method == "POST":
-        ticketform = NewTicketForm(request.POST, request.FILES)
-        criticform = ReviewForm(request.POST)
-        print('bob 1')
-        if ticketform.is_valid() and criticform.is_valid():
-            ticketform.save()
-            criticform.save()
-            '''
-            critic = criticform.save(commit=False)
-            ticket = ticketform.save(commit=False)
-            print('bob2')
-            critic.user = request.user
+        form_crit = ReviewForm(request.POST)
+        form_tik = NewTicketForm(request.POST, request.FILES)
+        if form_crit.is_valid() and form_tik.is_valid():
+            ticket = form_tik.save(commit=False)
             ticket.user = request.user
             ticket.save()
-            print('bob3')
+            critic = form_crit.save(commit=False)
+            critic.user = request.user
             critic.ticket = ticket
             critic.save()
-            print('bob4')
-            '''
             return redirect('flux')
     else:
         print('bob echec')
-        ticketform = NewTicketForm()
-        criticform = ReviewForm()
+        form_crit = ReviewForm()
+        form_tik = NewTicketForm
 
-    return render(request, "create_critics.html", {"ticketform": ticketform, "criticform": criticform})
+    return render(request, "create_critics.html", {"form_crit": form_crit, "form_tik": form_tik, })
 
 
 @login_required(login_url='home')
