@@ -137,12 +137,20 @@ def show_own_critics(request):
 
 
 @login_required(login_url='home')
-def edit_own_critics(request):
+def edit_own_critics(request, review_id):
     """
     :param request:
     :return:
     """
-    return render(request, "show_own_critics.html")
+    review = Review.objects.get(pk=review_id)
+    ticket = review.ticket
+    print(ticket.title)
+    edit_review_form = ReviewForm(request.POST or None, instance=review)
+    if edit_review_form.is_valid():
+
+        edit_review_form.save()
+        return redirect('show-critics')
+    return render(request, "edit_own_critics.html", {'edit_review_form': edit_review_form, 'ticket': ticket})
 
 
 @login_required(login_url='home')

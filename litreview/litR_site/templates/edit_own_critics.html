@@ -7,6 +7,26 @@
 <body>
     <section>
         <h1> LITReview, Page modifier ses critiques</h1>
+        <a class="" href="{% url 'flux' %}" >Retour page flux</a>
+    </section>
+    <section>
+        <p> Livre / Article </p>
+        <p>{{ticket.title}}</p>
+        <p>{{ticket.description}}</p>
+        <p>{{ticket.time_created}}</p>
+        {% if ticket.image %}
+        <div>
+            <img class="" src={{ ticket.image.url}} />
+        </div>
+        {% endif %}
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <p> Votre critique </p>
+            {{edit_review_form.as_p}}
+
+            <input type="submit" value="Validez votre critique">
+        </form>
+        <a class="" href="{% url 'flux' %}" >Retour page flux</a>
     </section>
 
 </body>
