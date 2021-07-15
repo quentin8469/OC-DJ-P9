@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from .forms import NewUserForm, NewTicketForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 
-
+from .models import Ticket, Review
 
 '''
     Kevin
@@ -55,7 +55,10 @@ def flux(request):
     :param request:
     :return:
     """
-    return render(request, "flux.html")
+    tickets = Ticket.objects.all()
+    critiques = Review.objects.all()
+
+    return render(request, "flux.html", {'tickets': tickets, 'critiques': critiques})
 
 
 @login_required(login_url='home')
@@ -106,7 +109,6 @@ def create_critics(request):
             critic.save()
             return redirect('flux')
     else:
-        print('bob echec')
         form_crit = ReviewForm()
         form_tik = NewTicketForm
 
