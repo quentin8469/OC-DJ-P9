@@ -159,3 +159,10 @@ def del_ticket(request, ticket_id):
     ticket = Ticket.objects.get(pk=ticket_id, user=request.user.id)
     ticket.delete()
     return redirect('show-critics')
+
+
+@login_required(login_url='home')
+def del_review(request, review_id):
+    review = Ticket.objects.get(pk=review_id, user=request.user.id)
+    review.delete()
+    return redirect('show-critics')
