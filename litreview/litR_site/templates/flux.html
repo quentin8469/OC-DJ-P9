@@ -22,9 +22,35 @@
     <section>
         <h2> ici visu des publications</h2>
         <p> Visu des tickets</p>
-        <p> {{ tickets }}</p>
+        <div class="ticketshowall">
+            {% for ticket in tickets %}
+                <p> {{ ticket.title }}</p>
+                <p> {{ ticket.description }}</p>
+                <p> {{ ticket.user }}</p>
+                {% if ticket.image %}
+                    <img class="" src="../media/{{ ticket.image}}">
+                {% endif %}
+                <p> {{ ticket.time_created }}</p>
+                <a class="" href="" >faire une critique</a>
+            {% endfor %}
+        </div>
         <p> Visu des critiques</p>
-        <p> {{ critiques }}</p>
+        {% for critique in critiques %}
+            <div class="ticketshowall">
+                <p> {{ critique.ticket.title }}</p>
+                {% if critique.ticket.image %}
+                    <img class="" src="../media/{{ critique.ticket.image}}">
+                {% endif %}
+                <p> {{ critique.ticket.description }}</p>
+            </div>
+            <div class="crticsshowall">
+                <p> {{ critique.rating }}</p>
+                <p> {{ critique.headline }}</p>
+                <p> {{ critique.body }}</p>
+                <p> {{ critique.user }}</p>
+                <p> {{ critique.time_created }}</p>
+            </div>
+        {% endfor %}
     </section>
 
 </body>

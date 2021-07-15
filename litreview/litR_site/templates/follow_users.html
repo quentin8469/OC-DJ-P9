@@ -6,7 +6,18 @@
 </head>
 <body>
     <section>
-        <h1> LITReview, Page abonnement/suivi d'autres utilisateurs</h1>
+        <h1> LITReview, Page abonnement/suivi d'autres utilisateurs </h1>
+        <a class="" href="{% url 'flux' %}" >Retour page flux</a>
+    </section>
+    <section>
+        <h1> Suivre d'autres utilisateurs </h1>
+        <form method="POST">
+
+            <div>
+                <input type="text" value="Nom d'utilisateur">
+                <input type="submit" value="Envoyer">
+            </div>
+        </form>
     </section>
 
 </body>

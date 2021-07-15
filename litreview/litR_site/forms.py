@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Ticket, Review
+from .models import Ticket, Review, UserFollows
 
 
 class NewUserForm(UserCreationForm):
@@ -28,3 +28,9 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['headline', 'rating', 'body']
+
+
+class UserFollowForm(forms.ModelForm):
+    class Meta:
+        model = UserFollows
+        fields = ['user', 'followed_user']
