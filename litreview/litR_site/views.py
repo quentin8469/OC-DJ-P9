@@ -1,5 +1,6 @@
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .forms import NewUserForm, NewTicketForm, ReviewForm
 from django.contrib.auth.decorators import login_required
@@ -67,7 +68,8 @@ def follow_users(request):
     :param request:
     :return:
     """
-    return render(request, "follow_users.html")
+    users = User.objects.all()
+    return render(request, "follow_users.html", {'users': users})
 
 
 @login_required(login_url='home')

@@ -11,6 +11,12 @@
     </section>
     <section>
         <h1> Suivre d'autres utilisateurs </h1>
+        {% for user in users %}
+        <div>
+            {{ user.username}}
+            <input type="submit" value="Suivre">
+        </div>
+        {% endfor %}
         <form method="POST">
 
             <div>
