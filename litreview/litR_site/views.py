@@ -3,6 +3,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .forms import NewUserForm, NewTicketForm, ReviewForm
 from django.contrib.auth.decorators import login_required
+
+from .models import Ticket
+
 '''
     Kevin
     k1e2v3i4n5
@@ -70,10 +73,14 @@ def create_ticket(request):
     :param request:
     :return:
     """
+
     if request.method == "POST":
-        form = NewTicketForm(request.POST)
+        form = NewTicketForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            n_ticket = form.save(commit=False)
+            n_ticket.image = form.cleaned_data['image']
+            n_ticket.user = request.user
+            n_ticket.save()
             return redirect('flux')
     else:
         form = NewTicketForm()
@@ -88,22 +95,27 @@ def create_critics(request):
     """
     print('bob0')
     if request.method == "POST":
-        print('bob1')
-        ticketform = NewTicketForm(request.POST)
-        print('bob2')
+        ticketform = NewTicketForm(request.POST, request.FILES)
         criticform = ReviewForm(request.POST)
-        print('bob3')
+        print('bob 1')
         if ticketform.is_valid() and criticform.is_valid():
+            ticketform.save()
+            criticform.save()
+            '''
             critic = criticform.save(commit=False)
             ticket = ticketform.save(commit=False)
-            print('bob4')
+            print('bob2')
+            critic.user = request.user
+            ticket.user = request.user
             ticket.save()
-            print('bob5')
+            print('bob3')
+            critic.ticket = ticket
             critic.save()
-            print('bob6')
+            print('bob4')
+            '''
             return redirect('flux')
     else:
-        print('bob7')
+        print('bob echec')
         ticketform = NewTicketForm()
         criticform = ReviewForm()
 

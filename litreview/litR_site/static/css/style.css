@@ -1,0 +1,57 @@
+@charset "UTF-8";
+/* Style body */
+body {
+
+
+}
+
+header {
+	border: solid;
+	border-radius: 20px;
+	margin: 0px
+}
+
+.title h1 {
+    text-align: center;
+}
+
+.titleone h2 {
+    text-align: center;
+    margin-top: 50px;
+    margin-right: 700px;
+    margin-left: 700px;
+    border: solid;
+    border-radius: 10px;
+}
+
+section {
+    margin-top: 200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inscription {
+    width: 300px;
+    border: solid;
+    border-radius: 20px;
+    margin-top: 0px;
+    margin-left: 500px;
+    padding: 10px;
+    text-align: center;
+
+}
+a {
+    border:solid;
+    border-radius: 10px;
+    padding: 5px;
+    color: black;
+}
+.connection{
+    width: 300px;
+    border: solid;
+    border-radius: 20px;
+    margin-right: 500px;
+    padding: 10px;
+    text-align: center;
+
+}

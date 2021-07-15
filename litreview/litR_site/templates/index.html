@@ -1,19 +1,25 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>LITReview_OC_P9</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <header>
-        <h1> LITReview </h1>
-        <h2>Page d'accueil </h2>
+        <div class="title">
+            <h1> LITReview </h1>
+        </div>
+
     </header>
-    <section>
+        <div class="titleone">
+            <h2>Bienvenue sur le site de LITReview </h2>
+        </div>
+    <section class="choiceaction">
         <div class="inscription">
             <h2> inscription </h2>
             <a class="" href="{% url 'signup' %}" >S'inscrire</a>
-            <a class="" href="{% url 'flux' %}" >flux</a>
         </div>
         <div class="connection">
             <h2> Connectez-vous </h2>
@@ -21,13 +27,15 @@
                 {% csrf_token %}
                 <input type="text" class="" name="username" placeholder="Nom d'utilisateur"><br>
                 <input type="password" class="" name="password" placeholder="Mot de passe"><br>
-                <input class="btn btn-primary" type="submit" value="Se connecter">
+                <input class="btn " type="submit" value="Se connecter">
             </form>
-
-
         </div>
-
     </section>
+
+
+
+
+
 
 </body>
 </html>
