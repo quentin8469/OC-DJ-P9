@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>LITReview_P9</title>
-</head>
-<body>
-    <header>
-        <h1> LITReview </h1>
-        <nav>
-            <h2> Flux </h2>
-            <a class="" href="{% url 'show-critics' %}" >Mes Posts</a>
-            <a class="" href="{% url 'follow' %}" >Abonnements</a>
-            <a class="" href="{% url 'logout' %}" >Se déconnecter</a>
-        </nav>
-    </header>
+{% extends "base_02.html" %}
+{% load static %}
+{% block content %}
     <section>
         <h1> LITReview, Page flux</h1>
         <a class="" href="{% url 'new-critic' %}" >Demander une critique</a>
@@ -31,9 +18,10 @@
                     <img class="" src="../media/{{ ticket.image}}">
                 {% endif %}
                 <p> {{ ticket.time_created }}</p>
-                <a class="" href="" >Créer une critique pour ce ticket</a>
+                <a class="" href="{% url 'answer-critic' %}" >Créer une critique pour ce ticket</a>
             {% endfor %}
         </div>
+        <h2> ici visu des critiques</h2>
         <p> Visu des critiques</p>
         {% for critique in critiques %}
             <div class="ticketshowall">
@@ -53,5 +41,4 @@
         {% endfor %}
     </section>
 
-</body>
-</html>
+{% endblock %}

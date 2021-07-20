@@ -1,30 +1,45 @@
 @charset "UTF-8";
-/* Style body */
+/* base style */
 body {
-
-
+	background: linear-gradient(to bottom, rgba(37, 37, 37, 0.616), rgba(154, 156, 158, 0.562));
+	color: black;
 }
 
-header {
-	border: solid;
+.all-views {
+    border: solid;
 	border-radius: 20px;
 	margin: 0px
+	justify-content: space-between;
+	display: flex;
+	align-items: center;
 }
 
-.title h1 {
-    text-align: center;
+.title-all-views {
+    margin-left: 850px;
 }
 
-.titleone h2 {
+nav.nav-bar {
+    margin-left: 500px;
+}
+
+nav.nav-bar a {
+    border:solid;
+    border-radius: 10px;
+    padding: 5px;
+    color: black;
+}
+
+/* index style */
+
+div.welcome-title {
     text-align: center;
     margin-top: 50px;
-    margin-right: 700px;
-    margin-left: 700px;
+    margin-right: 750px;
+    margin-left: 750px;
     border: solid;
     border-radius: 10px;
 }
-
-section {
+div.infos-choices {
     margin-top: 200px;
     display: flex;
     justify-content: space-between;
@@ -38,9 +53,8 @@ section {
     margin-left: 500px;
     padding: 10px;
     text-align: center;
-
 }
-a {
+.inscription a {
     border:solid;
     border-radius: 10px;
     padding: 5px;
@@ -55,3 +69,28 @@ a {
     text-align: center;
 
 }
+
+/* signup style */
+
+.singup-inscription h2 {
+    border:solid;
+    width: 500px;
+    border-radius: 20px;
+    margin-left: 680px;
+    padding: 10px;
+    text-align: center;
+}
+.singup-inscription form {
+    border:solid;
+    width: 500px;
+    border-radius: 20px;
+    margin-left: 680px;
+    padding: 10px;
+    text-align: center;
+}
+
+.btn-singup {
+    margin-top: 40px;
+}
+
+/* flux style */

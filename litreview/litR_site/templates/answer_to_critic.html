@@ -1,13 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>LITReview_P9</title>
-</head>
-<body>
+{% extends "base_02.html" %}
+{% load static %}
+{% block content %}
     <section>
         <h1> LITReview, Page creation de critique en reponse à un ticket</h1>
+        <a class="" href="{% url 'flux' %}" >Retour page flux</a>
     </section>
+<section>
+    <h1> Vous souhaitez faire une reponse a cette demande ( à ce ticket)</h1>
+    <div>
+        <h3>ici s'affiche le ticket realisé par XXXX</h3>
+    </div>
+    <div>
+        <h3>ici s'affiche le formulaire de critique à remplir</h3>
+    </div>
+</section>
 
-</body>
-</html>
+{% endblock %}

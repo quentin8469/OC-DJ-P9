@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 
 from .views import signup, flux, follow_users, create_ticket, create_critics, answer_to_critic, show_own_critics, \
@@ -18,4 +20,4 @@ urlpatterns = [
     path('edit-ticket/<int:ticket_id>/', edit_own_ticket, name="edit-ticket"),
     path('delticket/<int:ticket_id>/', del_ticket, name="delticket"),
     path('delreview/<int:review_id>/', del_review, name="delreview"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

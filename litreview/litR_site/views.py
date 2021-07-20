@@ -37,6 +37,7 @@ def logout_user(request):
 
 def signup(request):
     """
+
     :param request:
     :return:
     """
@@ -141,7 +142,9 @@ def show_own_critics(request):
 @login_required(login_url='home')
 def edit_own_critics(request, review_id):
     """
+
     :param request:
+    :param review_id:
     :return:
     """
     review = Review.objects.get(pk=review_id)
@@ -159,6 +162,7 @@ def edit_own_critics(request, review_id):
 def edit_own_ticket(request, ticket_id):
     """
     :param request:
+    :param ticket_id:
     :return:
     """
     ticket = Ticket.objects.get(pk=ticket_id, user=request.user.id)
