@@ -2,12 +2,12 @@
 {% load static %}
 {% block content %}
     <section>
-        <h1> LITReview, Page voir ses propres critiques</h1>
+        <h1> LITReview, Page voir ses propres critiques et tickets</h1>
         <a class="" href="{% url 'flux' %}" >Retour page flux</a>
     </section>
     <section>
         <h2> Mes posts</h2>
-        <div>
+        <div class="ticketshowall">
             <h1> Visu des tickets</h1>
             {% for ticket in tickets %}
                 <p> {{ ticket.title }}</p>
@@ -19,7 +19,7 @@
                 <a class="" href="{% url 'delticket' ticket.id %}" >Supprimer</a>
             {% endfor %}
         </div>
-        <div>
+        <div class="criticsshowall">
             <h1> Visu des critiques</h1>
             {% for critique in critiques %}
                 <p> {{ critique.ticket.title }}</p>

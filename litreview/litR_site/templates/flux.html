@@ -1,43 +1,48 @@
 {% extends "base_02.html" %}
 {% load static %}
 {% block content %}
-    <section>
-        <h1> LITReview, Page flux</h1>
-        <a class="" href="{% url 'new-critic' %}" >Demander une critique</a>
-        <a class="" href="{% url 'new-ticket' %}" >Créer une critique</a>
+    <section class="title-flux">
+        <h1> LITReview, Page flux, bonjour {{ user.username.upper }} </h1>
+        <div class="nav-btn">
+            <a class="add-critics" href="{% url 'new-critic' %}" >Demander une critique</a>
+            <a class="add-tickets" href="{% url 'new-ticket' %}" >Créer une critique</a>
+        </div>
     </section>
     <section>
-        <h2> ici visu des publications</h2>
         <p> Visu des tickets</p>
+        {% for ticket in tickets %}
         <div class="ticketshowall">
-            {% for ticket in tickets %}
-                <p> {{ ticket.title }}</p>
-                <p> {{ ticket.description }}</p>
-                <p> {{ ticket.user }}</p>
-                {% if ticket.image %}
-                    <img class="" src="../media/{{ ticket.image}}">
-                {% endif %}
-                <p> {{ ticket.time_created }}</p>
-                <a class="" href="{% url 'answer-critic' %}" >Créer une critique pour ce ticket</a>
-            {% endfor %}
+            <p> Titre : {{ ticket.title }}</p>
+            <p> Description : {{ ticket.description }}</p>
+            <p> Ticket de {{ ticket.user }}.</p>
+            {% if ticket.image %}
+                <img class="" src="../media/{{ ticket.image}}">
+            {% endif %}
+            <p> Date de création : {{ ticket.time_created|date:'d/m/Y H:i' }}</p>
+            <a class="btn-add-critics" href="{% url 'answer-critic' %}" >Créer une critique pour ce ticket</a>
         </div>
-        <h2> ici visu des critiques</h2>
+        {% endfor %}
         <p> Visu des critiques</p>
         {% for critique in critiques %}
-            <div class="ticketshowall">
+        <div class="show-critics">
+            {% if critique.user.username == user.username %}
+            <p>Vous avez publié une critique</p>
+            {% else %}
+            <p> {{ critique.user.username }} a publié une critique</p>
+            {% endif %}
+            <p> {{ critique.time_created|date:'d/m/Y H:i' }}</p>
+            <p> {{ critique.headline.upper }} - {{ critique.rating }}</p>
+            <p> {{ critique.body }}</p>
+            <div class="critcs-ticketshowall">
+                <p> Ticket de : {{ critique.ticket.user }}.</p>
                 <p> {{ critique.ticket.title }}</p>
+                <p> {{ critique.ticket.description }}</p>
                 {% if critique.ticket.image %}
                     <img class="" src="../media/{{ critique.ticket.image}}">
                 {% endif %}
-                <p> {{ critique.ticket.description }}</p>
+
             </div>
-            <div class="crticsshowall">
-                <p> {{ critique.rating }}</p>
-                <p> {{ critique.headline }}</p>
-                <p> {{ critique.body }}</p>
-                <p> {{ critique.user }}</p>
-                <p> {{ critique.time_created }}</p>
-            </div>
+        </div>
         {% endfor %}
     </section>
 
