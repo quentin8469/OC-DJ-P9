@@ -152,3 +152,18 @@ div.infos-choices {
     margin-left: 600px;
     text-align: center;
 }
+
+.new-ticket {
+    text-align: center;
+    padding: 20px;
+}
+
+.add-new-ticket {
+    margin-left: 680px;
+    padding: 50px;
+}
+
+.valid-ticket {
+    margin-left: 750px;
+
+}

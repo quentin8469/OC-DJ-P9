@@ -115,18 +115,29 @@ def create_critics(request):
             return redirect('flux')
     else:
         form_crit = ReviewForm()
-        form_tik = NewTicketForm
+        form_tik = NewTicketForm()
 
     return render(request, "create_critics.html", {"form_crit": form_crit, "form_tik": form_tik, })
 
 
 @login_required(login_url='home')
-def answer_to_critic(request):
+def answer_to_critic(request, ticket_id):
     """
     :param request:
     :return:
     """
-    return render(request, "answer_to_critic.html")
+    ticket = Ticket.objects.get(pk=ticket_id)
+    if request.method == 'POST':
+        form_crit = ReviewForm(request.POST)
+        if form_crit.is_valid():
+            critic = form_crit.save(commit=False)
+            critic.user = request.user
+            critic.ticket = ticket
+            critic.save()
+            return redirect('flux')
+    else:
+        form_crit = ReviewForm()
+    return render(request, "answer_to_critic.html", {'ticket': ticket, 'form_crit': form_crit})
 
 
 @login_required(login_url='home')
@@ -151,10 +162,8 @@ def edit_own_critics(request, review_id):
     """
     review = Review.objects.get(pk=review_id)
     ticket = review.ticket
-    print(ticket.title)
     edit_review_form = ReviewForm(request.POST or None, instance=review)
     if edit_review_form.is_valid():
-
         edit_review_form.save()
         return redirect('show-critics')
     return render(request, "edit_own_critics.html", {'edit_review_form': edit_review_form, 'ticket': ticket})

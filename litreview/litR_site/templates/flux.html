@@ -9,17 +9,19 @@
         </div>
     </section>
     <section>
-        <p> Visu des tickets</p>
         {% for ticket in tickets %}
         <div class="ticketshowall">
             <p> Titre : {{ ticket.title }}</p>
+            <p> id : {{ ticket.id }}</p>
             <p> Description : {{ ticket.description }}</p>
             <p> Ticket de {{ ticket.user }}.</p>
             {% if ticket.image %}
                 <img class="" src="../media/{{ ticket.image}}">
             {% endif %}
             <p> Date de création : {{ ticket.time_created|date:'d/m/Y H:i' }}</p>
-            <a class="btn-add-critics" href="{% url 'answer-critic' %}" >Créer une critique pour ce ticket</a>
+
+            <a class="btn-add-critics" href="{% url 'answer-critic' ticket.id %}" >Créer une critique pour ce ticket</a>
+
         </div>
         {% endfor %}
         <p> Visu des critiques</p>
