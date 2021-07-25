@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from .views import signup, flux, follow_users, create_ticket, create_critics, answer_to_critic, show_own_critics, \
-    edit_own_critics, edit_own_ticket, index, logout_user, del_ticket, del_review
+    edit_own_critics, edit_own_ticket, index, logout_user, del_ticket, del_review, unfollow_user
 
 urlpatterns = [
     path('', index, name="home"),
@@ -12,6 +12,7 @@ urlpatterns = [
     path('logout/', logout_user, name="logout"),
     path('flux/', flux, name="flux"),
     path('follow/', follow_users, name="follow"),
+    path('unfollow/<int:id_follow>/', unfollow_user, name="unfollow"),
     path('new-ticket/', create_ticket, name="new-ticket"),
     path('new-critic/', create_critics, name="new-critic"),
     path('answer-critic/<int:ticket_id>/', answer_to_critic, name="answer-critic"),

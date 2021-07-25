@@ -1,17 +1,20 @@
-
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.http import Http404
 from django.shortcuts import render, redirect
-from .forms import NewUserForm, NewTicketForm, ReviewForm
+from .forms import NewUserForm, NewTicketForm, ReviewForm, UserFollowForm
 from django.contrib.auth.decorators import login_required
 
-from .models import Ticket, Review
+from .models import Ticket, Review, UserFollows
 
 '''
     Kevin
     k1e2v3i4n5
     bobill
     b1o2b3i4l5l6
+    Rambo
+    r1a2m3b4o5
 '''
 
 
@@ -71,8 +74,80 @@ def follow_users(request):
     :param request:
     :return:
     """
+
     users = User.objects.all()
+    if request.method == "POST":
+        username = request.POST.get("username")
+        for user in users:
+            if user.username == username:
+                if user.username == request.user.username:
+                    messages.info(request, "Cant following you")
+                else:
+                    user_follow = UserFollows(user=request.user, followed_user=user)
+                    try:
+                        user_follow.save()
+                    except IntegrityError:
+                        messages.info(request, "Username already followed")
+                return redirect("follow")
+        else:
+            messages.info(request, "Username does not exist")
+    form = UserFollowForm()
+    try:
+        users_following = UserFollows.objects.filter(user=request.user)
+        users_follower = UserFollows.objects.filter(followed_user=request.user)
+    except UserFollows.DoesNotExist:
+        raise Http404("UserFollows does not exist")
+
+    return render(request, "follow_users.html", {
+        "form": form,
+        "users_following": users_following,
+        "users_follower": users_follower,
+    })
+
+
+
+    '''
+    users = User.objects.all()
+    if request.method == "POST":
+        username = request.POST.get("username")
+        for user in users:
+            if user.username == request.user.username:
+                erreur = ("pas possible")
+            else:
+                user_follow = UserFollows(user=request.user, followed_user=user)
+                user_follow.save()
+                return redirect('follow')
+
+    form = UserFollowForm()
+    usersfollows = UserFollows.objects.filter(user=request.user)
+    followeds = UserFollows.objects.filter(followed_user=request.user)
+
+    return render(request, "follow_users.html", {'form': form,
+                                                'usersfollows': usersfollows,
+                                                'followeds': followeds})
+    '''
+
+    '''
+    users = User.objects.all()
+    user = request.user
+    usersfollows = UserFollows.objects.filter(user=user.id)
+    followeds = UserFollows.objects.filter(followed_user=user.id)
+    return render(request,"follow_users.html", {'usersfollows': usersfollows, 'followeds': followeds})
+    if request.method == "GET":
+        form = UserFollowForm()
+        return render(request, "follow_users.html", {'form': form})
+    
     return render(request, "follow_users.html", {'users': users})
+    '''
+
+
+@login_required(login_url='home')
+def unfollow_user(request, id_follow):
+    """
+    """
+    unfollow = UserFollows.objects.get(pk=id_follow)
+    unfollow.delete()
+    return redirect('follow')
 
 
 @login_required(login_url='home')
