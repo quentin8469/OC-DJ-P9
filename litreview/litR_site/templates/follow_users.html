@@ -5,93 +5,27 @@
         <h1> LITReview, Page abonnement/suivi d'autres utilisateurs </h1>
         <a class="" href="{% url 'flux' %}" >Retour page flux</a>
     </section>
-    <H5 class="">Follow a User</H5>
-<div class="r">
-    <div class="">
-        <form method="POST" >
+    <section>
+        <h1> Selectionner qui vous voulez suivre:</h1>
+        <form method="POST">
             {% csrf_token %}
             {{form}}
-            <div class="">
-                <div class="">
-                    <input class="" type="submit" value="Follow User"/>
-                    {% if messages %}
-                        {% for message in messages %}
-                            <p class=""> {{message}}</p>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
+            <input class="" type="submit" value="Follow User"/>
         </form>
-    </div>
-</div>
-</form>
-<div class="" >
-    <div class="">
-        <table class="">
-            <thead >
-                <tr>
-                    <th scope="col">Following User</th>
-                    <th scope="col">Delete Followed User</th>
-                </tr>
-            <thead/>
-            <tbody>
-                {% for user_follow in users_following %}
-                <tr>
-                    <td>{{user_follow.followed_user}}</td>
-                    <td><button class ="">
-                        <a class="" href="{% url 'unfollow' id_follow=user_follow.pk %}"
-                           onclick="return confirm('Etes-vous sûr ?');">Delete</a></button></td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="" >
-    <div class="">
-        <table class="">
-            <thead >
-                <tr>
-                    <th scope="col">Follower User</th>
-                </tr>
-            <thead/>
-            <tbody>
-                {% for user_follow in users_follower %}
-                <tr>
-                    <td>{{user_follow.user}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-
-
-<div >
-    <p>Ajouter un abonnements</p>
-    <form method="POST" action="{% url 'follow'%}">
-    {% csrf_token %}
-    {{ form }}
-        <input class="btn" type="submit" value="Follow User">
-    </form>
-    <div id="error">{{ erreur }}</div>
-</div>
-<div >
-    <p>Mes Abonnements</p>
-    {% for usersfollow in usersfollows %}
-        <p>{{ usersfollow.followed_user }}</p>
-        <a href="{% url 'unfollow' usersfollow.id%}">Se désabonner</a>
-    {% endfor %}
-</div>
-<div >
-    <p>Mes Abonnés</p>
-    {% for followed in followeds %}
-    <p>{{ followed.user }}</p>
-    {% endfor %}
-</div>
-
-
+    </section>
+    <section>
+        <h1> Vous ete Abonné à :</h1>
+        {%for usersfollow in usersfollows %}
+            <p> {{usersfollow.followed_user}}</p>
+            <a class="" href="{% url 'unfollow' usersfollow.id %}">Se désabonner</a>
+        {%endfor%}
+    </section>
+    <section>
+        <h1> Vous etes suivi par:</h1>
+        {%for followed in followeds %}
+            <p> {{followed.user}}</p>
+        {%endfor%}
+    </section>
 {% endblock %}
 
 
