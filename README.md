@@ -15,7 +15,7 @@ Pour installer le programme via un terminal :
 
 Sous Windows :  
 ```sh
-$ git clone https://github.com/quentin8469/OC-QL-P4-Chess.git    
+$ git clone https://github.com/quentin8469/OC-DJ-P9.git    
 $ python3 -m venv env  
 $ env/scripts/activate  
 $ pip3 install -r requirements.txt   
@@ -23,7 +23,7 @@ $ python app.py
 ```
 Sous linux/Mac :      
 ```sh
-$ git clone https://github.com/quentin8469/OC-QL-P4-Chess.git    
+$ git clone https://github.com/quentin8469/OC-DJ-P9.git   
 $ python3 -m venv env    
 $ source env/bin/activate    
 $ pip3 install -r requirements.txt    
