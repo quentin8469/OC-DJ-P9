@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 from django.http import Http404
 from django.shortcuts import render, redirect
 from .forms import NewUserForm, NewTicketForm, ReviewForm, UserFollowForm
@@ -75,70 +76,16 @@ def follow_users(request):
     :return:
     """
 
-    users = User.objects.all()
-    if request.method == "POST":
-        username = request.POST.get("username")
-        for user in users:
-            if user.username == username:
-                if user.username == request.user.username:
-                    messages.info(request, "Cant following you")
-                else:
-                    user_follow = UserFollows(user=request.user, followed_user=user)
-                    try:
-                        user_follow.save()
-                    except IntegrityError:
-                        messages.info(request, "Username already followed")
-                return redirect("follow")
-        else:
-            messages.info(request, "Username does not exist")
-    form = UserFollowForm()
-    try:
-        users_following = UserFollows.objects.filter(user=request.user)
-        users_follower = UserFollows.objects.filter(followed_user=request.user)
-    except UserFollows.DoesNotExist:
-        raise Http404("UserFollows does not exist")
-
-    return render(request, "follow_users.html", {
-        "form": form,
-        "users_following": users_following,
-        "users_follower": users_follower,
-    })
-
-
-
-    '''
-    users = User.objects.all()
-    if request.method == "POST":
-        username = request.POST.get("username")
-        for user in users:
-            if user.username == request.user.username:
-                erreur = ("pas possible")
-            else:
-                user_follow = UserFollows(user=request.user, followed_user=user)
-                user_follow.save()
-                return redirect('follow')
-
-    form = UserFollowForm()
     usersfollows = UserFollows.objects.filter(user=request.user)
     followeds = UserFollows.objects.filter(followed_user=request.user)
-
-    return render(request, "follow_users.html", {'form': form,
-                                                'usersfollows': usersfollows,
-                                                'followeds': followeds})
-    '''
-
-    '''
-    users = User.objects.all()
-    user = request.user
-    usersfollows = UserFollows.objects.filter(user=user.id)
-    followeds = UserFollows.objects.filter(followed_user=user.id)
-    return render(request,"follow_users.html", {'usersfollows': usersfollows, 'followeds': followeds})
-    if request.method == "GET":
+    if request.method == "POST":
+        form = UserFollowForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('follow')
+    else:
         form = UserFollowForm()
-        return render(request, "follow_users.html", {'form': form})
-    
-    return render(request, "follow_users.html", {'users': users})
-    '''
+    return render(request, "follow_users.html", {"form": form, "usersfollows": usersfollows, "followeds": followeds })
 
 
 @login_required(login_url='home')
