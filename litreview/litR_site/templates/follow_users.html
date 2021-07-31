@@ -1,31 +1,56 @@
 {% extends "base_02.html" %}
 {% load static %}
 {% block content %}
-    <section>
-        <h1> LITReview, Page abonnement/suivi d'autres utilisateurs </h1>
+
+    <div class="row">
+	<div class="col-10 offset-1">
+		<div class="row text-center mb-3">
+			<h4>Suivre d'autres utilisateurs</h4>
+            {% for user in users  %}
+                <p>{{ user.username }}</p>
+            {% endfor %}
+			<form  method="post">
+				{% csrf_token %}
+				<div class="col-9 d-inline-block">
+					<input class="form-control text-center" type="text" name="username" placeholder="Nom d'utilisateur">
+				</div>
+				<div class="col-2 d-inline-block">
+					<button class="btn btn-primary">Envoyer</button>
+				</div>
+			</form>
+		</div>
+		<div class="row text-center mb-3">
+			<h4>Abonnements</h4>
+			<table class="table table-sm table-bordered border-dark">
+				<tbody>
+					{% for usersfollow in usersfollows %}
+					<tr>
+						<td>{{ usersfollow.followed_user }}</td>
+						<td><a href="{% url 'unfollow' usersfollow.id %}" class="btn btn-danger">Désabonner</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="row text-center">
+			<h4>Abonnés</h4>
+			<table class="table table-sm table-bordered border-dark text-start">
+				<tbody>
+					{% for followed in followeds  %}
+					<tr>
+						<td>{{ followed.user }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
         <a class="" href="{% url 'flux' %}" >Retour page flux</a>
-    </section>
-    <section>
-        <h1> Selectionner qui vous voulez suivre:</h1>
-        <form method="POST">
-            {% csrf_token %}
-            {{form}}
-            <input class="" type="submit" value="Follow User"/>
-        </form>
-    </section>
-    <section>
-        <h1> Vous ete Abonné à :</h1>
-        {%for usersfollow in usersfollows %}
-            <p> {{usersfollow.followed_user}}</p>
-            <a class="" href="{% url 'unfollow' usersfollow.id %}">Se désabonner</a>
-        {%endfor%}
-    </section>
-    <section>
-        <h1> Vous etes suivi par:</h1>
-        {%for followed in followeds %}
-            <p> {{followed.user}}</p>
-        {%endfor%}
-    </section>
+</div>
+
+
+
+
 {% endblock %}
 
 

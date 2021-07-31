@@ -10,6 +10,12 @@ class NewUserForm(UserCreationForm):
     """
 
     """
+    username = forms.CharField(label="", widget=forms.TextInput(
+        attrs={'placeholder': "Nom d'utilisateur"}))
+    password1 = forms.CharField(label="", widget=forms.PasswordInput(
+        attrs={"placeholder": "Mot de passe"}))
+    password2 = forms.CharField(label="", widget=forms.PasswordInput(
+        attrs={"placeholder": "Confirmez votre mot de passe"}))
 
     class Meta:
         """
@@ -28,9 +34,23 @@ class NewTicketForm(forms.ModelForm):
             "description": "Description",
             "image": "Image"
         }
+        widgets = {
+            'title': forms.TextInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'description': forms.Textarea(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+
+        }
 
 
 class ReviewForm(forms.ModelForm):
+
     class Meta:
         model = Review
         fields = ['headline', 'rating', 'body']
@@ -39,11 +59,25 @@ class ReviewForm(forms.ModelForm):
             "headline": "Titre",
             "body": "Commentaire",
         }
+        CHOICE = [('0', 0), ('1', 1), ('2', 2),
+                  ('3', 3), ('4', 4), ('5', 5)]
         widgets = {
-            "rating": RadioSelect(
-                choices=[(0, "- 0"), (1, "- 1"), (2, "- 2"), (3, "- 3"), (4, "- 4"), (5, "- 5")]),
-            "body": Textarea(),
-            "headline": TextInput()
+            'headline': forms.TextInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'body': forms.Textarea(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'rating': forms.RadioSelect(
+                choices=CHOICE,
+                attrs={
+                    'class': 'custom-li',
+                }
+            )
         }
 
 
@@ -51,3 +85,4 @@ class UserFollowForm(forms.ModelForm):
     class Meta:
         model = UserFollows
         fields = ['user', 'followed_user']
+

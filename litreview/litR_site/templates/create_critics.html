@@ -1,22 +1,16 @@
 {% extends "base_02.html" %}
 {% load static %}
 {% block content %}
-    <section>
-        <h1> LITReview, Page créer critiques</h1>
-        <a class="" href="{% url 'flux' %}" >Retour page flux</a>
-    </section>
-    <section>
-        <form enctype="multipart/form-data" method="POST">
-            {% csrf_token %}
-            <p> Livre / Article </p>
-            {{form_tik.as_p}}
-
-            <p> Votre critique </p>
-            {{form_crit.as_p}}
-
-            <input type="submit" value="Validez votre critique">
-        </form>
-        <a class="" href="{% url 'flux' %}" >Retour page flux</a>
-    </section>
-
+<div class="container mt-5">
+    <h1> {{user.username.upper}} vous souhaitez créer une critique</h1>
+    <form enctype="multipart/form-data" method="POST" class="post-form border border-dark p-3">
+        {% csrf_token %}
+        <p> Livre / Article </p>
+        {{ form_tik.as_p }}
+        <p> Votre critique </p>
+        {{ form_crit.as_p }}
+        <input type="submit" value="Validez votre critique">
+    </form>
+    <a class="" href="{% url 'flux' %}" >Retour page flux</a>
+</div>
 {% endblock %}

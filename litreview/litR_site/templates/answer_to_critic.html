@@ -1,30 +1,36 @@
 {% extends "base_02.html" %}
 {% load static %}
 {% block content %}
-    <section>
-        <h1> LITReview, Page creation de critique en reponse à un ticket</h1>
-        <a class="" href="{% url 'flux' %}" >Retour page flux</a>
-    </section>
-<section>
-    <h1> Vous souhaitez faire une reponse a cette demande ( à ce ticket)</h1>
-
-        <p> Livre / Article </p>
-        <p>{{ticket.title}}</p>
-        <p>{{ticket.description}}</p>
-        <p>{{ticket.time_created}}</p>
-        {% if ticket.image %}
-        <div>
-            <img class="" src={{ ticket.image.url}} />
+<div class="container mt-5">
+    <div class="container border border-dark p-4">
+        <div>{{user.username.upper}} vous souhaitez repondre à ce ticket:</div>
+        <div class="container w-75 border border-dark mt-2 mb-2 p-2">
+            <div class="row">
+                    <div class="col-10">Vous avez a demandé une critique</div>
+                    <div class="col-2">{{ticket.time_created|date:'d/m/Y H:i'}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-10">{{ticket.title}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-10">{{ticket.description}}</div>
+                </div>
+                    {% if ticket.image %}
+                        <div class="row mt-2 mb-2">
+                            <div class="col-10">
+                                <img src="{{ticket.image.url}}"/>
+                            </div>
+                        </div>
+                {% endif %}
         </div>
-        {% endif %}
-        <form enctype="multipart/form-data" method="POST">
-            {% csrf_token %}
-            <p> Votre critique </p>
-            {{form_crit.as_p}}
+    </div>
+    <form method="POST" class="post-form border border-dark p-3">
+        {% csrf_token %}
+        {{form_crit.as_p}}
 
             <input type="submit" value="Validez votre critique">
         </form>
         <a class="" href="{% url 'flux' %}" >Retour page flux</a>
-</section>
-
+        <a class="nav-link" href="{% url 'flux' %}">Annuler modification</a>
+</div>
 {% endblock %}

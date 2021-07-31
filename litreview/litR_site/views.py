@@ -1,7 +1,8 @@
+from itertools import chain
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.db import IntegrityError
 from django.http import Http404
 from django.shortcuts import render, redirect
 from .forms import NewUserForm, NewTicketForm, ReviewForm, UserFollowForm
@@ -63,8 +64,10 @@ def flux(request):
     :param request:
     :return:
     """
-    tickets = Ticket.objects.all()
-    critiques = Review.objects.all()
+
+    usersfollows = UserFollows.objects.filter(user=request.user)
+    critiques = Review.objects.filter(user=request.user)
+    tickets = Ticket.objects.filter(user=request.user)
 
     return render(request, "flux.html", {'tickets': tickets, 'critiques': critiques})
 
@@ -75,17 +78,17 @@ def follow_users(request):
     :param request:
     :return:
     """
+    users = User.objects.all()
+    if request.POST:
+        username = request.POST['username']
+        user = User.objects.get(username__exact=username)
+        if user is not None:
+            UserFollows.objects.create(user=request.user, followed_user=user)
 
-    usersfollows = UserFollows.objects.filter(user=request.user)
-    followeds = UserFollows.objects.filter(followed_user=request.user)
-    if request.method == "POST":
-        form = UserFollowForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('follow')
-    else:
-        form = UserFollowForm()
-    return render(request, "follow_users.html", {"form": form, "usersfollows": usersfollows, "followeds": followeds })
+    usersfollows = UserFollows.objects.filter(user__exact=request.user)
+    followeds = UserFollows.objects.filter(followed_user__exact=request.user)
+
+    return render(request, 'follow_users.html', {'usersfollows': usersfollows, 'followeds': followeds, 'users': users})
 
 
 @login_required(login_url='home')
@@ -171,7 +174,10 @@ def show_own_critics(request):
     user = request.user
     tickets = Ticket.objects.filter(user=user.id)
     critiques = Review.objects.filter(user=user.id)
-    return render(request, "show_own_critics.html", {'tickets': tickets, 'critiques': critiques})
+    all_user_contributions = sorted(chain(tickets, critiques),
+                          key=lambda instance: instance.time_created,
+                          reverse=True)
+    return render(request, "show_own_critics.html", {'all_user_contributions': all_user_contributions})
 
 
 @login_required(login_url='home')

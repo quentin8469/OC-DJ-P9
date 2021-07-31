@@ -1,18 +1,16 @@
 {% extends "base_02.html" %}
 {% load static %}
 {% block content %}
-    <section class="edit-ticket">
-        <h1 X> LITReview, Page modifier son ticket</h1>
-        <a class="" href="{% url 'flux' %}" >Retour page flux</a>
-    </section>
-    <section>
-        <form enctype="multipart/form-data" method="POST">
-                {% csrf_token %}
-                <table>
-                    {{edit_ticket_form.as_table}}
-                </table>
-                <input type="submit" value="Validez votre modification">
-        </form>
-    </section>
-
+<div class="container mt-5">
+    <h1 X> {{user.username.upper}} vous souhaitez modifier un ticket</h1>
+    <form enctype="multipart/form-data" method="POST" class="post-form border border-dark p-3">
+        {% csrf_token %}
+        <table>
+            {{edit_ticket_form.as_table}}
+        </table>
+        <input type="submit" value="Validez votre modification">
+    </form>
+    <a class="nav-link" href="{% url 'flux' %}" >Retour page flux</a>
+    <a class="nav-link" href="{% url 'show-critics' %}">Retour aux Posts</a>
+</div>
 {% endblock %}

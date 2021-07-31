@@ -1,36 +1,75 @@
 {% extends "base_02.html" %}
 {% load static %}
 {% block content %}
-    <section>
-        <h1> LITReview, Page voir ses propres critiques et tickets</h1>
-        <a class="" href="{% url 'flux' %}" >Retour page flux</a>
-    </section>
-    <section>
-        <h2> Mes posts</h2>
-        <div class="ticketshowall">
-            <h1> Visu des tickets</h1>
-            {% for ticket in tickets %}
-                <p> {{ ticket.title }}</p>
-                {% if ticket.image %}
-                    <img class="" src="../media/{{ ticket.image}}">
-                {% endif %}
-                <p> {{ ticket.description }}</p>
-                <a class="" href="{% url 'edit-ticket' ticket.id %}" >Modifier</a>
-                <a class="" href="{% url 'delticket' ticket.id %}" >Supprimer</a>
-            {% endfor %}
-        </div>
-        <div class="criticsshowall">
-            <h1> Visu des critiques</h1>
-            {% for critique in critiques %}
-                <p> {{ critique.ticket.title }}</p>
-                {% if critique.ticket.image %}
-                    <img class="" src="../media/{{ critique.ticket.image}}">
-                {% endif %}
-                <p> Commentaire: {{ critique.body }}</p>
-                <a class="" href="{% url 'edit-critics' critique.id %}" >Modifier</a>
-                <a class="" href="{% url 'delreview' critique.ticket.id %}" >Supprimer</a>
-            {% endfor %}
-        </div>
-    </section>
 
+    <div class="container d-flex justify-content-center mb-3 mt-5">
+    <h3>Mes posts (Tickets et critiques)</h3>
+</div>
+<div class="container">
+    {% for contrib in all_user_contributions %}
+        {% if contrib.title %}
+            <div class="container bg-white text-dark border border-dark mb-5 p-3">
+                <div class="d-flex justify-content-center text-dark"><h3>Demande</h3></div>
+                <div class="row mt-2 mb-2">
+                    <div class="col-10">Vous avez a demandé une critique</div>
+                    <div class="col-2">{{contrib.time_created|date:'d/m/Y H:i'}}</div>
+                </div>
+                <div class="row mt-2 mb-2">
+                    <div class="col-10">{{contrib.title}}</div>
+                </div>
+                <div class="row mt-2 mb-2">
+                    <div class="col-10">{{contrib.description}}</div>
+                </div>
+                {% if contrib.image %}
+                    <div class="row mt-2 mb-2">
+                        <div class="col-10">
+                            <img src="../media/{{ contrib.image}}"/>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row justify-content-end mt-2 mb-2">
+                    <div class="col-2">
+                        <a href="{% url 'edit-ticket' contrib.id %}" class="btn btn-primary">Modifier</a>
+                        <a href="{% url 'delticket' contrib.id %}" class="btn btn-primary">Supprimer</a>
+                    </div>
+                </div>
+                </div>
+        {% else %}
+            <div class="container bg-secondary text-white border border-dark mb-5 p-3">
+                <div class="d-flex justify-content-center text-dark"><h3>Critique</h3></div>
+                <div class="row mt-2 mb-2">
+                        <div class="col-10">Vous avez publié une critique</div>
+                        <div class="col-2">{{contrib.time_created|date:'d/m/Y H:i'}}</div>
+                </div>
+                <div class="row mt-2 mb-2">
+                        <div class="col-10">{{contrib.body}}</div>
+                </div>
+                <div class="container bg-white text-dark border border-dark mb-3 mt-3">
+                    <div class="row mt-2 mb-2">
+                        <div class="col-10">Ticket - {{contrib.ticket.user}}</div>
+                    </div>
+                    <div class="row mt-2 mb-2">
+                        <div class="col-10">{{contrib.ticket.title}}</div>
+                    </div>
+                    {% if contrib.ticket.image %}
+                        <div class="row mt-2 mb-2">
+                            <div class="col-10">
+                                <img src="{{contrib.ticket.image.url}}"/>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                </div>
+            <div class="row justify-content-end mt-2 mb-2">
+                <div class="col-2">
+                    <a href="{% url 'edit-critics' contrib.id %}" class="btn btn-primary">Modifier</a>
+                    <a href="{% url 'delreview' contrib.ticket.id %}" class="btn btn-primary">Supprimer</a>
+                </div>
+            </div>
+            </div>
+        {% endif %}
+    <a class="" href="{% url 'flux' %}" >Retour page flux</a>
+    {% endfor %}
+
+</div>
 {% endblock %}

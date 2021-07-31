@@ -1,16 +1,15 @@
 {% extends "base_02.html" %}
 {% load static %}
 {% block content %}
-    <section class="title-flux">
-        <h1> LITReview, Page flux, bonjour {{ user.username.upper }} </h1>
-        <div class="nav-btn">
-            <a class="add-critics" href="{% url 'new-critic' %}" >Demander une critique</a>
-            <a class="add-tickets" href="{% url 'new-ticket' %}" >Créer une critique</a>
+        <h1> LITReview, bonjour {{user.username.upper}}, bienvenue sur ta page FLUX </h1>
+        <div class="d-flex justify-content-around m-5">
+            <a href="{% url 'new-critic' %}" class="btn btn-primary">Demander une critique</a>
+            <a href="{% url 'new-ticket' %}" class="btn btn-primary">Créer une critique</a>
         </div>
-    </section>
-    <section>
-        {% for ticket in tickets %}
-        <div class="ticketshowall">
+
+<div class="container">
+    {% for ticket in tickets %}
+    <div class="container bg-white text-dark border border-dark mb-5 p-3">
             <p> Titre : {{ ticket.title }}</p>
             <p> id : {{ ticket.id }}</p>
             <p> Description : {{ ticket.description }}</p>
@@ -21,11 +20,14 @@
             <p> Date de création : {{ ticket.time_created|date:'d/m/Y H:i' }}</p>
 
             <a class="btn-add-critics" href="{% url 'answer-critic' ticket.id %}" >Créer une critique pour ce ticket</a>
-
-        </div>
         {% endfor %}
+    </div>
+</div>
+
+
         <p> Visu des critiques</p>
         {% for critique in critiques %}
+
         <div class="show-critics">
             {% if critique.user.username == user.username %}
             <p>Vous avez publié une critique</p>
@@ -42,10 +44,10 @@
                 {% if critique.ticket.image %}
                     <img class="" src="../media/{{ critique.ticket.image}}">
                 {% endif %}
-
             </div>
         </div>
         {% endfor %}
-    </section>
+
+
 
 {% endblock %}
