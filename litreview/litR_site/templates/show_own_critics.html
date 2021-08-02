@@ -63,7 +63,9 @@
             <div class="row justify-content-end mt-2 mb-2">
                 <div class="col-2">
                     <a href="{% url 'edit-critics' contrib.id %}" class="btn btn-primary">Modifier</a>
+                    {% if user.request == contrib.ticket.user %}
                     <a href="{% url 'delreview' contrib.id %}" class="btn btn-primary">Supprimer</a>
+                    {% endif %}
                 </div>
             </div>
             </div>

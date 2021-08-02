@@ -61,6 +61,7 @@ def flux(request):
 
     critique = Review.objects.all().filter(user__in=user_follow_list)
     ticket = Ticket.objects.all().filter(user__in=user_follow_list)
+    
     tickets = sorted(ticket, key=lambda instance: instance.time_created, reverse=True)
     critiques = sorted(critique, key=lambda instance: instance.time_created, reverse=True)
 
@@ -170,7 +171,8 @@ def show_own_critics(request):
     user = request.user
     tickets = Ticket.objects.filter(user=user.id)
     critiques = Review.objects.filter(user=user.id)
-    all_user_contributions = sorted(chain(tickets, critiques), key=lambda instance: instance.time_created, reverse=True)
+    all_user_contributions = sorted(chain(tickets, critiques),
+                                    key=lambda instance: instance.time_created, reverse=True)
     return render(request, "show_own_critics.html", {'all_user_contributions': all_user_contributions})
 
 
