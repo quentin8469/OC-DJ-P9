@@ -17,9 +17,8 @@ Sous Windows :
 ```sh
 $ git clone https://github.com/quentin8469/OC-DJ-P9.git    
 $ python3 -m venv env  
-$ env/scripts/activate  
+$ venv/scripts/activate  
 $ pip3 install -r requirements.txt   
-$ python app.py
 ```
 Sous linux/Mac :      
 ```sh
@@ -27,28 +26,28 @@ $ git clone https://github.com/quentin8469/OC-DJ-P9.git
 $ python3 -m venv env    
 $ source env/bin/activate    
 $ pip3 install -r requirements.txt    
-$ python app.py    
 ```
 
-Lancement du serveur Django :
+**Lancement du serveur Django** :
 
 * Se rendre dans le repertoire contenant le fichier python ' manage.py ' ( litreview )
 * Puis exécuter python manage.py runserver
-* A ce moment, page sera accessible à l'URL http://127.0.0.1:8000/
+* La page sera accessible à l'URL suivante:  http://127.0.0.1:8000/
 
 ## 3- Fonctionnement:
 
-* Suivre l'url http://127.0.0.1:8000/
+* Suivre l'url: http://127.0.0.1:8000/
 * S'inscrire
 * S'authentifier
 * Créer un ticket ou une critique.
 * Suivre un utilisateur existant
 
 ## 3- Liste des utilisateurs existants:
-* nom:    , mdp:
-* nom:    , mdp:
-* nom:    , mdp:
-* nom:    , mdp:
+* nom: Jean12, mdp:
+* nom: Edouard42, mdp:
+* nom: Sylvie45, mdp:
+* nom: Denis84, mdp:
+* nom: Jessica69, mdp:
 
 
 ***
