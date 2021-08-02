@@ -3,8 +3,8 @@
 {% block content %}
 <h3 class="titre"> Bonjour {{user.username.upper}}, bienvenue sur ta page FLUX </h3>
 <div class="d-flex justify-content-around m-5">
-    <a href="{% url 'new-critic' %}" class="btn btn-primary">Demander une critique</a>
-    <a href="{% url 'new-ticket' %}" class="btn btn-primary">Créer une critique</a>
+    <a href="{% url 'new-critic' %}" class="btn btn-primary">Créer une critique</a>
+    <a href="{% url 'new-ticket' %}" class="btn btn-primary">Créer un ticket</a>
 </div>
 
 {% for ticket in tickets %}
