@@ -2,6 +2,7 @@ from itertools import chain
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.http import Http404
 from django.shortcuts import render, redirect
 from .forms import NewUserForm, NewTicketForm, ReviewForm
 from django.contrib.auth.decorators import login_required
@@ -74,7 +75,7 @@ def follow_users(request):
     :param request:
     :return:
     """
-    users = User.objects.all()
+
     if request.POST:
         username = request.POST['username']
         user = User.objects.get(username__exact=username)
@@ -84,7 +85,7 @@ def follow_users(request):
     usersfollows = UserFollows.objects.filter(user__exact=request.user)
     followeds = UserFollows.objects.filter(followed_user__exact=request.user)
 
-    return render(request, 'follow_users.html', {'usersfollows': usersfollows, 'followeds': followeds, 'users': users})
+    return render(request, 'follow_users.html', {'usersfollows': usersfollows, 'followeds': followeds})
 
 
 @login_required(login_url='home')
@@ -218,6 +219,6 @@ def del_ticket(request, ticket_id):
 
 @login_required(login_url='home')
 def del_review(request, review_id):
-    review = Ticket.objects.get(pk=review_id, user=request.user.id)
+    review = Review.objects.get(pk=review_id, user=request.user.id)
     review.delete()
     return redirect('show-critics')

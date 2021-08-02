@@ -6,9 +6,7 @@
 	<div class="col-10 offset-1">
 		<div class="row text-center mb-3">
 			<h4>Suivre d'autres utilisateurs</h4>
-            {% for user in users  %}
-                <p>{{ user.username }}</p>
-            {% endfor %}
+
 			<form  method="post">
 				{% csrf_token %}
 				<div class="col-9 d-inline-block">

@@ -9,7 +9,7 @@
     {% for contrib in all_user_contributions %}
         {% if contrib.title %}
             <div class="container bg-white text-dark border border-dark mb-5 p-3">
-                <div class="d-flex justify-content-center text-dark"><h3>Demande</h3></div>
+                <div class="d-flex justify-content-center text-dark"><h3>Demande ticket</h3></div>
                 <div class="row mt-2 mb-2">
                     <div class="col-10">Vous avez a demandé une critique</div>
                     <div class="col-2">{{contrib.time_created|date:'d/m/Y H:i'}}</div>
@@ -50,6 +50,8 @@
                     </div>
                     <div class="row mt-2 mb-2">
                         <div class="col-10">{{contrib.ticket.title}}</div>
+                        <div class="col-10"> id ticket : {{contrib.ticket.id}}</div>
+                        <div class="col-10"> id review : {{contrib.id}}</div>
                     </div>
                     {% if contrib.ticket.image %}
                         <div class="row mt-2 mb-2">
@@ -63,9 +65,7 @@
             <div class="row justify-content-end mt-2 mb-2">
                 <div class="col-2">
                     <a href="{% url 'edit-critics' contrib.id %}" class="btn btn-primary">Modifier</a>
-                    {% if user.request == contrib.ticket.user %}
                     <a href="{% url 'delreview' contrib.id %}" class="btn btn-primary">Supprimer</a>
-                    {% endif %}
                 </div>
             </div>
             </div>
