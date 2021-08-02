@@ -43,12 +43,15 @@ $ pip3 install -r requirements.txt
 * Suivre un utilisateur existant
 
 ## 3- Liste des utilisateurs existants:
-* nom: Jean12, mdp:
-* nom: Edouard42, mdp:
-* nom: Sylvie45, mdp:
-* nom: Denis84, mdp:
-* nom: Jessica69, mdp:
+* nom: Jean12
+* nom: Edouard42
+* nom: Sylvie45
+* nom: Denis84
+* nom: Jessica69
 
+Le mot de passe est commun à chaques utilisateurs:
+
+* mdp: j1e2a3n41526
 
 ***
 Créer un rapport flake8 :  
