@@ -64,10 +64,16 @@ def flux(request):
     :param request:
     :return:
     """
+    user = request.user
+    usersfollows = UserFollows.objects.filter(user=user.id)
+    user_follow_list = [user]
+    for users in usersfollows:
+        user_follow_list.append(users.followed_user.id)
 
-    usersfollows = UserFollows.objects.filter(user=request.user)
-    critiques = Review.objects.filter(user=request.user)
-    tickets = Ticket.objects.filter(user=request.user)
+    critique = Review.objects.all().filter(user__in=user_follow_list)
+    ticket = Ticket.objects.all().filter(user__in=user_follow_list)
+    tickets = sorted(ticket, key=lambda instance: instance.time_created, reverse=True)
+    critiques = sorted(critique, key=lambda instance: instance.time_created, reverse=True)
 
     return render(request, "flux.html", {'tickets': tickets, 'critiques': critiques})
 
