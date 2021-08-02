@@ -1,23 +1,12 @@
 from itertools import chain
 
-from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import Http404
 from django.shortcuts import render, redirect
-from .forms import NewUserForm, NewTicketForm, ReviewForm, UserFollowForm
+from .forms import NewUserForm, NewTicketForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 
 from .models import Ticket, Review, UserFollows
-
-'''
-    Kevin
-    k1e2v3i4n5
-    bobill
-    b1o2b3i4l5l6
-    Rambo
-    r1a2m3b4o5
-'''
 
 
 def index(request):
@@ -154,6 +143,7 @@ def create_critics(request):
 @login_required(login_url='home')
 def answer_to_critic(request, ticket_id):
     """
+    :param ticket_id:
     :param request:
     :return:
     """
@@ -180,9 +170,7 @@ def show_own_critics(request):
     user = request.user
     tickets = Ticket.objects.filter(user=user.id)
     critiques = Review.objects.filter(user=user.id)
-    all_user_contributions = sorted(chain(tickets, critiques),
-                          key=lambda instance: instance.time_created,
-                          reverse=True)
+    all_user_contributions = sorted(chain(tickets, critiques), key=lambda instance: instance.time_created, reverse=True)
     return render(request, "show_own_critics.html", {'all_user_contributions': all_user_contributions})
 
 
